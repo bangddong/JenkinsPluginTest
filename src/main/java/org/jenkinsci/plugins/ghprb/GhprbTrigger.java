@@ -440,7 +440,11 @@ public class GhprbTrigger extends GhprbTriggerBackwardsCompatible {
         values.add(new StringParameterValue("ghprbPullLink", String.valueOf(cause.getUrl())));
         values.add(new StringParameterValue("ghprbPullLongDescription", escapeText(String.valueOf(cause.getDescription()))));
 
-        values.add(new StringParameterValue("ghprbCommentBody", escapeText(String.valueOf(cause.getCommentBody()))));
+        // 2023.08.26 BDH
+        // getCommentBody => getDescription
+        // 빌드 트리거에 필요한건 getCommentBody가 아닌 getDescription
+        //values.add(new StringParameterValue("ghprbCommentBody", escapeText(String.valueOf(cause.getCommentBody()))));
+        values.add(new StringParameterValue("ghprbCommentBody", escapeText(String.valueOf(cause.getDescription()))));
 
         values.add(new StringParameterValue("ghprbGhRepository", getString(cause.getRepositoryName(), "")));
         values.add(new StringParameterValue("ghprbCredentialsId", getString(cause.getCredentialsId(), "")));
